@@ -1,6 +1,3 @@
-حتماً. حالا که دو تصویر را هم به Repository اضافه کرده‌ای، README را طوری تنظیم می‌کنیم که **هم مرحله‌ی Annotation در AnyLabeling و هم خروجی نهایی YOLOv8** را نشان دهد. همچنین متن را با پروژه‌ی واقعی تو هماهنگ می‌کنم؛ یعنی **Tom Object Detection**، نه Face Recognition.
-
-این نسخه را می‌توانی مستقیماً داخل `README.md` قرار بدهی:
 
 # Tom Detection Using YOLOv8
 
