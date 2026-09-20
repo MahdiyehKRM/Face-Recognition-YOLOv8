@@ -1,136 +1,234 @@
+حتماً. حالا که دو تصویر را هم به Repository اضافه کرده‌ای، README را طوری تنظیم می‌کنیم که **هم مرحله‌ی Annotation در AnyLabeling و هم خروجی نهایی YOLOv8** را نشان دهد. همچنین متن را با پروژه‌ی واقعی تو هماهنگ می‌کنم؛ یعنی **Tom Object Detection**، نه Face Recognition.
+
+این نسخه را می‌توانی مستقیماً داخل `README.md` قرار بدهی:
+
 # Tom Detection Using YOLOv8
-
-A deep learning project for detecting the character **Tom** from *Tom & Jerry* video frames using the **YOLOv8** object detection model.
-
----
 
 ## 📌 Project Overview
 
-The goal of this project is to develop a deep learning-based object detection system capable of identifying the character **Tom** in frames extracted from a *Tom & Jerry* video.
+This project implements a **single-class object detection system using YOLOv8** to detect the character **Tom** from a Tom & Jerry video.
 
-The project uses **YOLOv8n** as the object detection model.
-
-The system receives video frames as input and predicts the location of Tom using a bounding box.
+The main goal of the project is to extract frames from a video, prepare and annotate the dataset, train a YOLOv8 model, evaluate its performance, and detect Tom in unseen images.
 
 The complete workflow includes:
 
-* Extracting frames from a video
-* Preparing the dataset
-* Annotating images
-* Converting annotations to YOLO format
-* Splitting the dataset into training and validation sets
-* Configuring the dataset using `data.yaml`
-* Training a YOLOv8 model
-* Evaluating the trained model
-* Visualizing training metrics
-* Generating predictions on images
+1. Extracting frames from the input video
+2. Preparing the dataset
+3. Annotating images using **AnyLabeling**
+4. Converting annotations to YOLO format
+5. Splitting the dataset into training and validation sets
+6. Training a YOLOv8 model
+7. Evaluating the trained model
+8. Visualizing the model predictions
 
 ---
 
-## 🎯 Project Objectives
+## 🎯 Objectives
 
 The main objectives of this project are:
 
-* Build a custom object detection dataset.
-* Detect the character Tom in video frames.
-* Train a YOLOv8 model for a single object class.
-* Convert image annotations into YOLO format.
-* Evaluate the model using standard object detection metrics.
-* Visualize the model's training performance.
-* Test the trained model on unseen images.
+* Extract frames from a Tom & Jerry video.
+* Create a dataset for object detection.
+* Manually annotate Tom using bounding boxes.
+* Convert annotations into YOLO format.
+* Train a YOLOv8 model for single-class object detection.
+* Evaluate the trained model using standard object detection metrics.
+* Visualize the detection results.
+* Analyze the performance of the trained model.
 
 ---
 
 ## 🧩 Problem Statement
 
-In an animated video, the character Tom can appear in different positions, poses, scales, and scenes.
+The task is to detect the character **Tom** in different frames extracted from a Tom & Jerry video.
 
-The objective is to train a model that can locate Tom in different video frames.
+For each input image, the model should determine whether Tom is present and, if detected, identify his exact location using a **bounding box**.
 
-For each detected instance, the model should determine:
+The model should be able to detect Tom under different conditions, including changes in:
 
-* Whether Tom is present in the image.
-* The location of Tom.
-* The bounding box surrounding Tom.
+* Position
+* Scale
+* Background
+* Pose
+* Motion
+* Scene composition
 
-The system is therefore formulated as a **single-class object detection problem**.
+This project focuses on **object detection**, where the model predicts the location of Tom rather than simply classifying the entire image.
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Technologies and Tools
 
-The project was implemented using the following technologies:
+The main technologies used in this project are:
 
-* Python
-* YOLOv8
-* Ultralytics
-* OpenCV
-* Pandas
-* Matplotlib
-* JSON
-* Jupyter Notebook
-* Git / GitHub
+* **Python**
+* **OpenCV**
+* **YOLOv8**
+* **Ultralytics**
+* **AnyLabeling**
+* **Pandas**
+* **Matplotlib**
+* **Jupyter Notebook**
+* **Git & GitHub**
 
 ---
 
 ## 🤖 Model
 
-The project uses:
+The object detection model used in this project is **YOLOv8n**.
 
-**YOLOv8n**
+YOLO stands for **You Only Look Once** and is a real-time object detection architecture.
 
-YOLO stands for **You Only Look Once** and is a family of real-time object detection models.
+The `n` version refers to the nano model, which is a relatively lightweight version of YOLOv8.
 
-The `n` version represents the nano model, which provides a relatively lightweight architecture suitable for faster training and inference.
+The model was selected because it provides a practical balance between:
 
-The model was initialized using:
+* Detection performance
+* Training speed
+* Computational requirements
+* Model size
 
-```python
-from ultralytics import YOLO
-
-model = YOLO("yolov8n.pt")
-```
-
-The pretrained YOLOv8n weights were then fine-tuned on the custom Tom detection dataset.
-
----
-
-## 📁 Project Structure
-
-The main repository contains:
+Only one object class was used in this project:
 
 ```text
-Face-Recognition-YOLOv8/
-│
-├── Tom_Detection_YOLOv8.ipynb
-├── data.yaml
-├── .gitignore
-└── README.md
+Class ID: 0
+Class Name: Tom
 ```
 
-The main Jupyter Notebook contains the complete implementation of the project.
+---
+
+# 📂 Project Structure
+
+The main files and directories of the repository are organized as follows:
+
+```text
+Face_Recognition_YOLOv8/
+│
+├── .gitignore
+├── data.yaml
+├── README.md
+├── Tom_Detection_YOLOv8.ipynb
+│
+└── Images/
+    ├── image1.png
+    └── image2.png
+```
+
+### Files
+
+**Tom_Detection_YOLOv8.ipynb**
+
+Contains the complete Python workflow, including dataset preparation, annotation conversion, model training, validation, visualization, and prediction.
+
+**data.yaml**
+
+Contains the YOLO dataset configuration.
+
+**README.md**
+
+Provides an overview and documentation of the project.
+
+**Images/**
+
+Contains selected images demonstrating the annotation and final prediction stages.
 
 ---
 
-## 🎬 Input Video
+# 🎥 Input Video
 
-The original input of the project is a *Tom & Jerry* video.
+The dataset was created from a Tom & Jerry video.
 
-The video was converted into individual image frames before training.
+Instead of directly training the model on the complete video, individual frames were extracted from the video.
 
-The extracted frames were then used to create the object detection dataset.
+Approximately **200 frames** were selected for creating the dataset.
 
-The project used approximately **200 frames** for the dataset.
+The extracted images were then used for annotation and model training.
 
 ---
 
-# 📊 Dataset Preparation
+# 🖼️ Frame Extraction
 
-## 1. Dataset Directory Structure
+OpenCV was used to read the input video and extract frames at regular intervals.
 
-The dataset was organized into separate image and label directories.
+The extraction process was designed to obtain approximately 200 images from the video.
 
-The main structure was:
+The extracted frames were saved as `.jpg` images.
+
+The general workflow was:
+
+```text
+Input Video
+     ↓
+Read Video Frames
+     ↓
+Select Frames
+     ↓
+Save Images
+     ↓
+Create Dataset
+```
+
+---
+
+# 🏷️ Data Annotation
+
+The extracted images were manually annotated using **AnyLabeling**.
+
+For each selected image, a bounding box was drawn around the character **Tom**.
+
+Only one class was used:
+
+```text
+Tom
+```
+
+The annotation process identifies the exact location of Tom in each image.
+
+### Annotation Example
+
+The following image shows an example of the manual annotation process using AnyLabeling.
+
+![Tom annotation using AnyLabeling](Images/image1.png)
+
+In this step, the bounding box is manually created around Tom.
+
+The annotation information is then used as the ground truth for training the YOLOv8 model.
+
+---
+
+# 🔄 Annotation Conversion
+
+AnyLabeling stores the annotations in JSON format, while YOLOv8 requires annotations in a specific TXT format.
+
+Therefore, a Python script was used to convert the JSON annotations into YOLO format.
+
+Each object is represented using:
+
+```text
+class_id x_center y_center width height
+```
+
+All bounding box coordinates are normalized between 0 and 1.
+
+For example:
+
+```text
+0 0.52 0.47 0.31 0.55
+```
+
+where:
+
+* `0` → class ID of Tom
+* `0.52` → normalized x-coordinate of the bounding box center
+* `0.47` → normalized y-coordinate of the bounding box center
+* `0.31` → normalized bounding box width
+* `0.55` → normalized bounding box height
+
+---
+
+# 📊 Dataset Structure
+
+The dataset follows the standard YOLO directory structure:
 
 ```text
 dataset/
@@ -144,518 +242,330 @@ dataset/
     └── labels/
 ```
 
-The `images` directories contain the extracted video frames.
+The dataset was divided into:
 
-The `labels` directories contain the corresponding YOLO annotation files.
+* **80% training data**
+* **20% validation data**
 
----
-
-## 2. Frame Extraction
-
-The first step was extracting frames from the original video.
-
-OpenCV was used to read the video:
-
-```python
-import cv2
-
-cap = cv2.VideoCapture(video_path)
-```
-
-The total number of frames was obtained using:
-
-```python
-total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-```
-
-A target of approximately 200 frames was selected.
-
-The frame sampling interval was calculated using:
-
-```python
-step = max(total_frames // target_frames, 1)
-```
-
-Selected frames were saved as JPEG images.
-
-Example:
-
-```text
-img_0.jpg
-img_1.jpg
-img_2.jpg
-...
-```
-
----
-
-# 🏷️ Data Annotation
-
-## 3. Image Annotation
-
-The extracted images were annotated using **AnyLabeling**.
-
-Only one object class was used:
-
-```text
-Tom
-```
-
-A bounding box was drawn around Tom in each annotated image.
-
-Each bounding box represents the location of Tom in the image.
-
----
-
-## 4. Annotation Format
-
-The annotations were initially saved as JSON files.
-
-The JSON annotation files contained information such as:
-
-* Image width
-* Image height
-* Object label
-* Bounding box coordinates
-
-The annotation format was then converted to the YOLO format required by YOLOv8.
-
----
-
-# 🔄 JSON to YOLO Conversion
-
-## 5. Class Definition
-
-The project contains only one class:
-
-```python
-class_name = "tom"
-class_id = 0
-```
-
-Therefore:
-
-```text
-0 = Tom
-```
-
----
-
-## 6. YOLO Annotation Format
-
-YOLO annotations use the following format:
-
-```text
-class_id x_center y_center width height
-```
-
-The bounding box coordinates are normalized between 0 and 1.
-
-For example:
-
-```text
-0 0.512 0.438 0.214 0.391
-```
-
-The values represent:
-
-* Class ID
-* Bounding box center X
-* Bounding box center Y
-* Bounding box width
-* Bounding box height
-
----
-
-## 7. Coordinate Conversion
-
-The bounding box coordinates from the JSON files were converted into normalized YOLO coordinates.
-
-The center coordinates were calculated as:
-
-```python
-x_center = ((x1 + x2) / 2) / w
-y_center = ((y1 + y2) / 2) / h
-```
-
-The width and height were calculated as:
-
-```python
-bw = abs(x2 - x1) / w
-bh = abs(y2 - y1) / h
-```
-
-The resulting annotations were saved as `.txt` files.
-
-Each image therefore has a corresponding label file.
-
-Example:
-
-```text
-img_25.jpg
-img_25.txt
-```
-
----
-
-# 📂 Train / Validation Split
-
-## 8. Dataset Splitting
-
-The dataset was divided into training and validation sets.
-
-Approximately:
-
-```text
-80% → Training
-20% → Validation
-```
-
-The images were shuffled before splitting.
-
-This helps the model learn from one portion of the dataset and allows its performance to be evaluated on images that were not used for training.
+The training images were used to train the YOLOv8 model, while the validation images were used to evaluate its performance during the training process.
 
 ---
 
 # ⚙️ Dataset Configuration
 
-## 9. data.yaml
+The YOLO dataset configuration was defined using a `data.yaml` file.
 
-The dataset configuration is provided through:
+The dataset contains one class:
 
-```text
-data.yaml
+```yaml
+nc: 1
+names: ['Tom']
 ```
 
-The configuration defines the dataset paths and class information required by YOLOv8.
-
-The project contains one object class:
-
-```text
-Tom
-```
-
-The YAML file allows the YOLO training process to identify:
-
-* Training images
-* Validation images
-* Number of classes
-* Class names
+The dataset paths are also specified in this file.
 
 ---
 
-# 🏋️ Model Training
+# 🧠 Model Training
 
-## 10. Training Configuration
+The YOLOv8 Nano model was used for training:
 
-The YOLOv8n model was trained using the following configuration:
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+```
+
+The model was trained using the following configuration:
 
 | Parameter         |     Value |
 | ----------------- | --------: |
 | Model             |   YOLOv8n |
+| Number of Classes |         1 |
+| Class             |       Tom |
 | Epochs            |        50 |
 | Image Size        | 640 × 640 |
 | Batch Size        |         8 |
-| Number of Classes |         1 |
-| Class             |       Tom |
 
-The training was performed using:
-
-```python
-model.train(
-    data=r"C:/transformer_project/dataset/data.yaml",
-    epochs=50,
-    imgsz=640,
-    batch=8,
-    project="runs/detect",
-    name="tom_jerry_final_run",
-    exist_ok=True
-)
-```
+The training process was performed using the training dataset and evaluated using the validation dataset.
 
 ---
 
-# 📈 Evaluation
+# 📈 Evaluation Metrics
 
-## 11. Evaluation Metrics
+Several metrics were used to evaluate the trained object detection model.
 
-After training, the model was evaluated using several standard object detection metrics.
+## Loss
 
-The main metrics analyzed were:
+Loss represents the error made by the model during training.
 
-* Precision
-* Recall
-* mAP50
-* mAP50-95
-* Training Loss
-* Validation Loss
+The training and validation losses were monitored throughout the training process.
+
+The main loss components include the bounding box regression loss and other YOLO training losses.
+
+A decreasing training loss generally indicates that the model is learning from the training data.
 
 ---
 
-## 12. Precision
+## Precision
 
-Precision measures the proportion of predicted detections that were correct.
+Precision measures how many of the objects detected by the model are actually correct.
 
-The final precision obtained in this project was:
+In this project:
 
 ```text
 Precision = 0.9237
 ```
 
-This means that the model achieved a high proportion of correct positive predictions on the evaluated data.
+This means that the model's detections had a precision of approximately **92.37%** under the evaluated validation conditions.
 
 ---
 
-## 13. Recall
+## Recall
 
-Recall measures how many of the actual objects were successfully detected.
+Recall measures how many of the actual target objects were successfully detected by the model.
 
-The final recall was:
+The obtained recall was:
 
 ```text
 Recall = 0.8947
 ```
 
-This indicates that the model was able to detect most of the Tom instances in the validation data.
+This corresponds to approximately **89.47% recall** on the evaluated validation data.
 
 ---
 
-## 14. mAP50
+## mAP@50
 
-mAP50 represents mean Average Precision at an IoU threshold of 0.50.
+Mean Average Precision at IoU threshold 0.50 is a common object detection evaluation metric.
 
-The final result was:
+The obtained result was:
 
 ```text
 mAP50 = 0.9066
 ```
 
-This indicates strong detection performance under the IoU = 0.50 criterion.
+Therefore, the model achieved approximately **90.66% mAP@50** on the validation dataset.
 
 ---
 
-## 15. mAP50-95
+## mAP@50-95
 
-The project also reports mAP50-95.
-
-The final value was:
+The model also achieved:
 
 ```text
 mAP50-95 = 0.4790
 ```
 
-This metric is more demanding because it evaluates performance across multiple IoU thresholds.
+mAP@50-95 evaluates the model across multiple IoU thresholds from 0.50 to 0.95.
 
-The difference between mAP50 and mAP50-95 indicates that localization performance becomes more challenging under stricter overlap requirements.
+Because this metric uses stricter localization requirements, its value is generally lower than mAP@50.
 
 ---
 
-# 📉 Loss Analysis
+# 📉 Loss Curve
 
-## 16. Training and Validation Loss
+The training and validation loss values were recorded during the 50 training epochs.
 
-The training process records the loss values for each epoch.
-
-The project visualizes:
+The loss curve can be used to observe the learning behavior of the model and compare the training and validation performance.
 
 ```text
-Train Box Loss
-Validation Box Loss
+Training
+    ↓
+Loss values recorded
+    ↓
+Visualization
+    ↓
+Analysis of model learning
 ```
-
-The final values after 50 epochs were:
-
-```text
-Final Train Box Loss = 0.8053
-Final Validation Box Loss = 1.8320
-```
-
-These values were obtained from the YOLO training results.
 
 ---
 
 # 📊 Precision and Recall Curve
 
-The project also visualizes Precision and Recall across training epochs.
+Precision and recall were monitored during training and validation.
 
-The curves are generated from:
+The final values obtained were:
 
-```text
-results.csv
-```
+| Metric    |  Value |
+| --------- | -----: |
+| Precision | 0.9237 |
+| Recall    | 0.8947 |
 
-The following metrics are plotted:
-
-```text
-metrics/precision(B)
-metrics/recall(B)
-```
-
-This visualization helps observe how the model's detection performance changes during training.
+These values indicate that the trained model was able to detect Tom in most of the evaluated validation images while maintaining a relatively low number of incorrect detections.
 
 ---
 
-# 📊 mAP Curve
+# 📈 mAP Curve
 
-The mAP50 curve was generated from the training results.
+The mAP metric was also monitored to evaluate the object detection performance.
 
-The plotted metric is:
+The final values were:
 
-```text
-metrics/mAP50(B)
-```
+| Metric   |  Value |
+| -------- | -----: |
+| mAP50    | 0.9066 |
+| mAP50-95 | 0.4790 |
 
-The curve shows the change in detection performance throughout the training process.
+The difference between mAP50 and mAP50-95 reflects the stricter localization requirements used by the latter metric.
 
 ---
 
 # 🧮 Confusion Matrix
 
-A confusion matrix was generated after model validation.
+A confusion matrix was generated during model evaluation.
 
-The obtained results included:
+The evaluated results included:
 
-```text
-Tom correctly detected: 18
-Tom incorrectly classified as Background: 2
-Background incorrectly classified as Tom: 1
-```
+* **18 correctly detected Tom instances**
+* **1 Tom instance incorrectly classified as background**
+* **2 background instances incorrectly detected as Tom**
 
-Because the project contains only one object class, the confusion matrix mainly reflects the relationship between the Tom class and background detections.
+The confusion matrix provides additional information about correct detections and detection errors.
 
 ---
 
 # 🖼️ Prediction Results
 
-The trained model was also used to generate predictions on validation images.
+After training, the YOLOv8 model was used to perform object detection on validation images.
 
-The predicted images contain bounding boxes around detected instances of Tom.
+The model predicts a bounding box around Tom when the character is detected.
 
-Several prediction examples were visualized using Matplotlib.
+The following image shows an example of the final YOLOv8 prediction.
 
-The notebook includes examples of predictions from validation images such as:
+![YOLOv8 prediction result](Images/image2.png)
 
-```text
-img_11.jpg
-img_12.jpg
-img_30.jpg
-img_41.jpg
-```
-
-These visualizations provide a qualitative evaluation of the trained detector.
+In this example, the model successfully identifies Tom and places a bounding box around the detected character.
 
 ---
 
 # 📋 Final Results
 
-The final results of the trained YOLOv8n model are summarized below:
+The final evaluation results are summarized below:
 
-| Metric              |  Value |
-| ------------------- | -----: |
-| Epochs              |     50 |
-| Train Box Loss      | 0.8053 |
-| Validation Box Loss | 1.8320 |
-| Precision           | 0.9237 |
-| Recall              | 0.8947 |
-| mAP50               | 0.9066 |
-| mAP50-95            | 0.4790 |
+| Metric                | Result |
+| --------------------- | -----: |
+| Precision             | 0.9237 |
+| Recall                | 0.8947 |
+| mAP50                 | 0.9066 |
+| mAP50-95              | 0.4790 |
+| Final Train Loss      | 0.8053 |
+| Final Validation Loss | 1.8320 |
 
 ---
 
-# 🔍 Results Interpretation
+# 🔍 Results Analysis
 
-The obtained Precision and Recall values show that the model was able to detect the target class effectively on the evaluated dataset.
+The obtained results show that the trained YOLOv8 model was able to detect Tom in the validation images.
 
-The mAP50 value of:
+The model achieved a precision of **92.37%** and recall of **89.47%**.
 
-```text
-0.9066
-```
+The mAP50 value of **90.66%** indicates good detection performance under the IoU threshold of 0.50.
 
-shows strong performance under the IoU = 0.50 evaluation criterion.
+However, the mAP50-95 value was lower at **47.90%**. This difference indicates that while the model can often detect Tom correctly, the predicted bounding boxes may not always have highly precise localization when evaluated using stricter IoU thresholds.
 
-However, the lower mAP50-95 value:
+The validation loss was also higher than the final training loss:
 
 ```text
-0.4790
+Training Loss:   0.8053
+Validation Loss: 1.8320
 ```
 
-shows that localization becomes more difficult when stricter IoU thresholds are applied.
-
-This difference suggests that there is still room for improving bounding box localization and generalization.
+This difference should be considered when interpreting the generalization of the model to unseen images.
 
 ---
 
 # ⚠️ Limitations
 
-The project has several limitations.
+Several limitations exist in this project.
 
-### Limited Dataset Size
+### 1. Small Dataset
 
 The dataset contains approximately 200 extracted frames.
 
-A larger and more diverse dataset could improve generalization.
+A larger and more diverse dataset could provide the model with more examples of Tom under different conditions.
 
-### Similar Video Frames
+### 2. Single Character
 
-Because the images were extracted from the same video, consecutive frames can have similar visual characteristics.
+Only Tom was annotated and detected.
 
-Therefore, the dataset may not represent all possible appearances of Tom.
+Jerry and other objects were not included as detection classes.
 
-### Single Character
+### 3. Similar Video Frames
 
-Only one class was trained:
+Since the images were extracted from the same video, consecutive frames can have similar visual content.
 
-```text
-Tom
-```
+This can reduce the diversity of the dataset.
 
-The model was not trained to distinguish between multiple characters.
+### 4. Bounding Box Localization
 
-### Animated Content
+The mAP50-95 result is considerably lower than mAP50, suggesting that more precise bounding-box localization could be improved.
 
-The model was trained specifically on an animated character.
+### 5. Limited Generalization
 
-Its performance on real human faces or unrelated objects should not be assumed from these results.
+The model was trained on frames from a particular Tom & Jerry video.
 
-### Bounding Box Localization
-
-The difference between mAP50 and mAP50-95 suggests that more precise localization could be investigated.
+Therefore, its performance on other episodes, animation styles, resolutions, or significantly different scenes may differ.
 
 ---
 
 # 🚀 Possible Improvements
 
-Several improvements could be considered in future versions:
+The project could be improved in several ways.
 
-* Increase the number of training images.
-* Use frames from different parts of the video.
-* Include multiple videos and scenes.
-* Increase variation in character scale and pose.
-* Improve annotation quality.
-* Apply data augmentation.
-* Experiment with other YOLOv8 model sizes.
-* Tune training hyperparameters.
-* Train for additional epochs when appropriate.
-* Evaluate the model on a completely separate test dataset.
-* Improve bounding box localization.
+### Larger Dataset
+
+More frames could be collected from different Tom & Jerry scenes and episodes.
+
+### More Diverse Data
+
+Images containing different poses, scales, backgrounds, and partial occlusions could be included.
+
+### More Precise Annotation
+
+More accurate bounding boxes could improve localization performance.
+
+### Data Augmentation
+
+Techniques such as:
+
+* Rotation
+* Scaling
+* Cropping
+* Flipping
+* Brightness adjustment
+
+could be used to increase data diversity.
+
+### Hyperparameter Optimization
+
+Training parameters such as:
+
+* Learning rate
+* Batch size
+* Number of epochs
+* Image size
+
+could be optimized.
+
+### Larger YOLO Models
+
+Other YOLOv8 model sizes such as YOLOv8s, YOLOv8m, or YOLOv8l could be evaluated and compared with YOLOv8n.
 
 ---
 
-# 💻 How to Run
+# ▶️ How to Run
 
 ## 1. Install Dependencies
 
-Install the required Python packages:
+Install the required packages:
 
 ```bash
 pip install ultralytics
 pip install opencv-python
-pip install matplotlib
 pip install pandas
+pip install matplotlib
 ```
-
----
 
 ## 2. Open the Notebook
 
@@ -667,8 +577,6 @@ Tom_Detection_YOLOv8.ipynb
 
 using Jupyter Notebook or JupyterLab.
 
----
-
 ## 3. Prepare the Dataset
 
 Create the required dataset structure:
@@ -678,68 +586,50 @@ dataset/
 ├── train/
 │   ├── images/
 │   └── labels/
-│
 └── val/
     ├── images/
     └── labels/
 ```
 
-Place the annotated images and YOLO label files in the corresponding directories.
+## 4. Configure the Dataset
 
----
-
-## 4. Configure data.yaml
-
-Update the dataset paths according to the location of the dataset on your computer.
-
-The configuration should define the training and validation image directories and the single class:
+Update the paths in:
 
 ```text
-Tom
+data.yaml
 ```
-
----
 
 ## 5. Train the Model
 
-Run the training section of the notebook.
+Run the YOLOv8 training cells in the notebook.
 
-The model will train using:
+The training configuration used in this project is:
 
-```text
-YOLOv8n
-50 epochs
-640 image size
-batch size 8
+```python
+model.train(
+    data="data.yaml",
+    epochs=50,
+    imgsz=640,
+    batch=8
+)
 ```
 
----
+## 6. Evaluate the Model
 
-## 6. Validate the Model
+Run the validation section to calculate:
 
-After training, run the validation section.
+* Precision
+* Recall
+* mAP50
+* mAP50-95
 
-The validation process generates evaluation metrics and visualization files.
+## 7. Generate Predictions
 
----
-
-# 📦 Output Files
-
-The YOLO training process generates several output files and visualizations, including:
-
-```text
-results.csv
-confusion_matrix.png
-results.png
-```
-
-and other training-related outputs.
-
-These files can be used for further analysis of the model.
+The trained model can then be used to detect Tom in new images.
 
 ---
 
-# 📚 Project Workflow
+# 🔄 Complete Project Workflow
 
 The complete workflow can be summarized as:
 
@@ -748,79 +638,87 @@ Tom & Jerry Video
         ↓
 Frame Extraction
         ↓
-Image Dataset
+Dataset Creation
         ↓
-Image Annotation
+Manual Annotation with AnyLabeling
         ↓
 JSON Annotations
         ↓
-JSON → YOLO TXT
+Conversion to YOLO TXT Format
         ↓
 Train / Validation Split
-        ↓
-data.yaml
         ↓
 YOLOv8n Training
         ↓
 Model Validation
         ↓
-Precision / Recall
+Metrics Calculation
         ↓
-mAP50 / mAP50-95
+Prediction
         ↓
-Prediction Visualization
+Bounding Box around Tom
 ```
 
 ---
 
-# 🧑‍💻 Project Type
+# 📌 Project Type
 
-This project was developed as a **Deep Learning / Object Detection course project**.
+This project is a:
 
-The main focus was on applying a modern object detection model to a custom video-based dataset.
+**Single-Class Object Detection Project**
 
----
-
-# 📌 Key Takeaways
-
-This project demonstrates a complete workflow for building a custom YOLOv8 object detection system.
-
-The main stages include:
-
-1. Video processing
-2. Frame extraction
-3. Dataset creation
-4. Image annotation
-5. YOLO label generation
-6. Dataset organization
-7. Model training
-8. Model validation
-9. Metric analysis
-10. Prediction visualization
-
-The final YOLOv8n model achieved:
+Target class:
 
 ```text
-Precision: 0.9237
-Recall:    0.8947
-mAP50:     0.9066
-mAP50-95:  0.4790
+Tom
 ```
 
-These results demonstrate that the trained model was able to detect Tom effectively on the evaluated validation data.
+Model:
+
+```text
+YOLOv8n
+```
+
+The system detects the location of Tom using bounding boxes rather than performing image-level classification.
+
+---
+
+# 📝 Key Takeaways
+
+The main steps completed in this project include:
+
+* Extracting approximately 200 frames from a video
+* Creating a custom object detection dataset
+* Annotating Tom using AnyLabeling
+* Converting JSON annotations to YOLO format
+* Splitting the dataset into training and validation sets
+* Training a YOLOv8n model for 50 epochs
+* Evaluating the model using Precision, Recall, mAP50, and mAP50-95
+* Generating a confusion matrix and training curves
+* Testing the trained model on validation images
+* Visualizing the predicted bounding box around Tom
+
+The final model achieved:
+
+```text
+Precision : 0.9237
+Recall    : 0.8947
+mAP50     : 0.9066
+mAP50-95  : 0.4790
+```
 
 ---
 
 # 👤 Author
 
-**Mahdiyeh KRM**
+**Mahdiyeh K.**
 
-GitHub:
+GitHub Repository:
 
-`https://github.com/MahdiyehKRM`
+`Face-Recognition-YOLOv8`
 
 ---
 
 # 📄 License
 
-This repository was created for educational and academic purposes.
+This project was developed for educational and academic purposes.
