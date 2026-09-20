@@ -1,0 +1,8 @@
+path: C:/transformer_project/dataset
+
+train: train/images
+val: val/images
+
+nc: 1
+names:
+  0: tom

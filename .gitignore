@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# YOLO training outputs
+runs/
+*.pt
+*.onnx
+
+# Dataset
+dataset/
+train/
+val/
+test/
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+
+# OS
+Thumbs.db
+.DS_Store
